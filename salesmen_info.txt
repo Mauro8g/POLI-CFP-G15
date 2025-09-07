@@ -1,0 +1,5 @@
+CC;1001;Maria;Rodriguez
+CC;1002;Ana;Diaz
+CC;1003;Luis;Rodriguez
+CC;1004;Ana;Gomez
+CC;1005;Juan;Diaz

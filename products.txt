@@ -1,0 +1,10 @@
+P1;Producto1;82
+P2;Producto2;27
+P3;Producto3;27
+P4;Producto4;15
+P5;Producto5;92
+P6;Producto6;87
+P7;Producto7;17
+P8;Producto8;2
+P9;Producto9;74
+P10;Producto10;14
