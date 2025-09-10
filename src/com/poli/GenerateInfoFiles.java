@@ -27,7 +27,7 @@ public class GenerateInfoFiles {
             // Jim Owen Rey: Generamos archivos de prueba con datos aleatorios
             createProductsFile(10);               // Genera archivo con 10 productos
             createSalesManInfoFile(5);            // Genera archivo con 5 vendedores
-            createSalesMenFile(8, "Juan", 1001);  // Genera archivo de ventas para "Juan"
+            createSalesMenFile(8, "Carlos", 1001);  // Genera archivo de ventas para "Juan"
 
             System.out.println("✅ Archivos de prueba generados exitosamente.");
         } catch (Exception e) {
