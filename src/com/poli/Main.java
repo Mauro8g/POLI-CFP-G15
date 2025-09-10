@@ -33,10 +33,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             // 1. Cargar productos
-            cargarProductos("products.txt");
+            cargarProductos("products.csv");
 
             // 2. Cargar vendedores
-            cargarVendedores("salesmen_info.txt");
+            cargarVendedores("salesmen_info.csv");
 
             // 3. Procesar ventas de todos los archivos que empiezan por "sales_"
             File carpeta = new File(".");
