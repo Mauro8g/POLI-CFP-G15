@@ -48,7 +48,7 @@ public class GenerateInfoFiles {
      * Jim Owen Rey: Este método crea productos de ejemplo para pruebas.
      */
     public static void createProductsFile(int productsCount) throws IOException {
-        FileWriter writer = new FileWriter("products.txt");
+        FileWriter writer = new FileWriter("products.csv");
         Random random = new Random();
 
         for (int i = 1; i <= productsCount; i++) {
@@ -70,7 +70,7 @@ public class GenerateInfoFiles {
      * Jim Owen Rey: Este método crea vendedores con nombres y apellidos aleatorios.
      */
     public static void createSalesManInfoFile(int salesmanCount) throws IOException {
-        FileWriter writer = new FileWriter("salesmen_info.txt");
+        FileWriter writer = new FileWriter("salesmen_info.csv");
         String[] nombres = {"Juan", "Ana", "Pedro", "Maria", "Luis"};
         String[] apellidos = {"Lopez", "Perez", "Gomez", "Rodriguez", "Diaz"};
         Random random = new Random();
@@ -99,7 +99,7 @@ public class GenerateInfoFiles {
      * Jim Owen Rey: Este método genera ventas aleatorias para un vendedor.
      */
     public static void createSalesMenFile(int randomSalesCount, String name, long id) throws IOException {
-        String fileName = "sales_" + name + "_" + id + ".txt";
+        String fileName = "sales_" + name + "_" + id + ".csv";
         FileWriter writer = new FileWriter(fileName);
         Random random = new Random();
 
