@@ -1,117 +1,169 @@
-package com.poli;
-
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
-/**
- * Clase GenerateInfoFiles
- * Entrega 1 - Principios de Programación
- *
- * Objetivo:
- *  - Generar archivos de prueba que servirán como entrada para la segunda parte del proyecto.
- *  - Archivos generados:
- *      1. products.txt → Lista de productos con ID, nombre y precio.
- *      2. salesmen_info.txt → Información de vendedores (documento, nombre, apellido).
- *      3. sales_[nombre]_[id].txt → Archivo de ventas de un vendedor específico.
- *
- * Autor: Jim Owen Rey
- * Comentarios:
- *  - Esta clase fue implementada para cumplir con la entrega 1.
- *  - El código genera datos pseudoaleatorios para simular entradas reales.
- */
 public class GenerateInfoFiles {
+    
+    //---------------------------------------------------------------------------------
+    //  MÉTODOS PARA GENERAR Y GESTIONAR LA INFORMACIÓN DE LOS VENDEDORES
+    //---------------------------------------------------------------------------------
+
+    /**
+     * Genera datos aleatorios para un número específico de vendedores.
+     * @param salesmanCount El número de vendedores a generar.
+     * @return Un HashMap donde la clave es el número de documento y el valor es un array con los datos del vendedor.
+     */
+    public static HashMap<Long, String[]> generateSalesmenData(int salesmanCount) {
+        HashMap<Long, String[]> salesmenData = new HashMap<>();
+        Random random = new Random();
+        
+        String[] documentTypes = {"TI", "CC", "CE"};
+        String[] names = {"Sara", "Andrea", "Estefany", "Jessica", "Juliana", "Francisco", "Antonio", "Camilo", "Michael", "German", "Eduar", "Jhon", "Viviana"};
+        String[] lastnames = {"Rios", "Cardona", "Rivera", "Alvares", "Murillo", "Montoya", "Contreras", "Jimenes"};
+        
+        for (int i = 0; i < salesmanCount; i++) {
+            String randomDocType = documentTypes[random.nextInt(documentTypes.length)];
+            long documentNumber = 1000000000L + random.nextInt(900000000);
+            String randomName = names[random.nextInt(names.length)];
+            String randomLastname = lastnames[random.nextInt(lastnames.length)];
+            
+            String[] salesmanInfo = {randomDocType, randomName, randomLastname};
+            salesmenData.put(documentNumber, salesmanInfo);
+        }
+        return salesmenData;
+    }
+    
+    /**
+     * Crea un archivo CSV con la información de los vendedores.
+     * @param salesmenData El HashMap con los datos de los vendedores.
+     */
+    public static void createSalesmanInfoFile(HashMap<Long, String[]> salesmenData) {
+        String fileName = "Salesman.csv";
+        try (FileWriter fileWriter = new FileWriter(fileName)) { // Uso de try-with-resources para cerrar el escritor automáticamente
+            fileWriter.write("TipoDocumento;NúmeroDocumento;NombresVendedor;ApellidosVendedor\n");
+            
+            for (Map.Entry<Long, String[]> entry : salesmenData.entrySet()) {
+                Long documentNumber = entry.getKey();
+                String[] info = entry.getValue();
+                fileWriter.write(info[0] + ";" + documentNumber + ";" + info[1] + ";" + info[2] + "\n");
+            }
+            
+            System.out.println("Archivo " + fileName + " creado con éxito.");
+        } catch (IOException e) {
+            System.err.println("Error al crear o escribir en el archivo: " + e.getMessage());
+        }
+    }
+    
+    //---------------------------------------------------------------------------------
+    //  MÉTODOS PARA GENERAR Y GESTIONAR LA INFORMACIÓN DE LOS PRODUCTOS
+    //---------------------------------------------------------------------------------
+
+    /**
+     * Genera un HashMap de productos con ID, nombre y precio únicos.
+     * @return Un HashMap donde la clave es el nombre del producto y el valor es un array con el ID y el precio.
+     */
+    public static HashMap<String, String[]> generateProductData() {
+        String[] productNames = {"Tornillo", "Tuerca", "Arandela", "Broca", "Atornillador", "Martillo", "Llave", "Serrucho", "Taladro", "Destornillador"};
+        HashMap<String, String[]> productData = new HashMap<>();
+        Random random = new Random();
+        
+        for (String productName : productNames) {
+            long productId = random.nextLong(9000000000L) + 1000000000L;
+            long productPrice = random.nextLong(90000L) + 10000L;
+            
+            String[] productInfo = {String.valueOf(productId), String.valueOf(productPrice)};
+            productData.put(productName, productInfo);
+        }
+        return productData;
+    }
+    
+    /**
+     * Crea un archivo CSV con la información de los productos.
+     * @param productData El HashMap con la información de los productos.
+     */
+    public static void createProductFile(HashMap<String, String[]> productData) {
+        String fileName = "Product.csv";
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
+            fileWriter.write("IDProducto;NombreProducto;PrecioPorUnidad\n");
+            
+            for (Map.Entry<String, String[]> entry : productData.entrySet()) {
+                String productName = entry.getKey();
+                String[] productInfo = entry.getValue();
+                fileWriter.write(productInfo[0] + ";" + productName + ";" + productInfo[1] + "\n");
+            }
+            
+            System.out.println("Archivo " + fileName + " creado con éxito.");
+        } catch (IOException e) {
+            System.err.println("Error al crear o escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    //---------------------------------------------------------------------------------
+    //  MÉTODO PARA CREAR ARCHIVOS DE VENTAS INDIVIDUALES
+    //---------------------------------------------------------------------------------
+    
+    /**
+     * Crea un archivo de ventas para un vendedor específico, usando IDs de producto del HashMap.
+     * @param randomSalesCount Número de ventas a generar.
+     * @param documentType Tipo de documento del vendedor.
+     * @param documentNumber Número de documento del vendedor.
+     * @param productData El HashMap con la información de todos los productos.
+     */
+    public static void createSalesmenFile(int randomSalesCount, String documentType, long documentNumber, HashMap<String, String[]> productData) {
+        String fileName = "Sales_" + documentType + "_" + documentNumber + ".csv";
+        try (FileWriter fileWriter = new FileWriter(fileName)) {
+            fileWriter.write("ID_Producto;Cantidad_Producto_vendido\n");
+            Random random = new Random();
+            
+            List<String> productNames = new ArrayList<>(productData.keySet());
+            
+            for (int i = 0; i < randomSalesCount; i++) {
+                String randomProductName = productNames.get(random.nextInt(productNames.size()));
+                String[] productInfo = productData.get(randomProductName);
+                String productId = productInfo[0];
+                int amountSold = random.nextInt(20) + 1;
+                fileWriter.write(productId + ";" + amountSold + "\n");
+            }
+            
+            System.out.println("Archivo " + fileName + " creado con éxito.");
+        } catch (IOException e) {
+            System.err.println("Error al crear o escribir en el archivo: " + e.getMessage());
+        }
+    }
+
+    //---------------------------------------------------------------------------------
+    //  MÉTODO PRINCIPAL (MAIN)
+    //---------------------------------------------------------------------------------
 
     public static void main(String[] args) {
-        try {
-            // Jim Owen Rey: Generamos archivos de prueba con datos aleatorios
-            createProductsFile(10);               // Genera archivo con 10 productos
-            createSalesManInfoFile(5);            // Genera archivo con 5 vendedores
-            createSalesMenFile(8, "Carlos", 1001);  // Genera archivo de ventas para "Juan"
+        // La cantidad de vendedores que queremos generar
+        int totalSalesmen = 10;
+        
+        // 1. Generar los datos de todos los vendedores
+        HashMap<Long, String[]> salesmenData = generateSalesmenData(totalSalesmen);
+        
+        // 2. Usar los datos para crear el archivo Salesman.csv
+        createSalesmanInfoFile(salesmenData);
 
-            System.out.println("✅ Archivos de prueba generados exitosamente.");
-        } catch (Exception e) {
-            // Jim Owen Rey: Captura y muestra cualquier error ocurrido en la generación
-            System.out.println("❌ Error al generar los archivos: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
+        // 3. Generamos los datos de los productos (IDs, nombres y precios)
+        HashMap<String, String[]> productData = generateProductData();
+        
+        // 4. Usamos esos datos para crear el archivo Product.csv
+        createProductFile(productData);
 
-    /**
-     * Genera un archivo products.txt con información de productos.
-     *
-     * Formato: IDProducto;NombreProducto;PrecioPorUnidad
-     *
-     * @param productsCount número de productos a generar
-     * @throws IOException en caso de error al escribir el archivo
-     *
-     * Jim Owen Rey: Este método crea productos de ejemplo para pruebas.
-     */
-    public static void createProductsFile(int productsCount) throws IOException {
-        FileWriter writer = new FileWriter("products.csv");
-        Random random = new Random();
+        // 5. Usamos los datos de los vendedores para crear los archivos de ventas.
+        for (Map.Entry<Long, String[]> entry : salesmenData.entrySet()) {
+            Long documentNumber = entry.getKey();
+            String[] info = entry.getValue();
+            String documentType = info[0];
 
-        for (int i = 1; i <= productsCount; i++) {
-            int price = random.nextInt(100) + 1; // Precio entre 1 y 100
-            writer.write("P" + i + ";Producto" + i + ";" + price + "\n");
+            createSalesmenFile(10, documentType, documentNumber, productData); 
         }
 
-        writer.close();
-    }
-
-    /**
-     * Genera un archivo salesmen_info.txt con información de vendedores.
-     *
-     * Formato: TipoDocumento;NumeroDocumento;Nombres;Apellidos
-     *
-     * @param salesmanCount número de vendedores a generar
-     * @throws IOException en caso de error al escribir el archivo
-     *
-     * Jim Owen Rey: Este método crea vendedores con nombres y apellidos aleatorios.
-     */
-    public static void createSalesManInfoFile(int salesmanCount) throws IOException {
-        FileWriter writer = new FileWriter("salesmen_info.csv");
-        String[] nombres = {"Juan", "Ana", "Pedro", "Maria", "Luis"};
-        String[] apellidos = {"Lopez", "Perez", "Gomez", "Rodriguez", "Diaz"};
-        Random random = new Random();
-
-        for (int i = 1; i <= salesmanCount; i++) {
-            String nombre = nombres[random.nextInt(nombres.length)];
-            String apellido = apellidos[random.nextInt(apellidos.length)];
-            writer.write("CC;" + (1000 + i) + ";" + nombre + ";" + apellido + "\n");
-        }
-
-        writer.close();
-    }
-
-    /**
-     * Genera un archivo de ventas para un vendedor.
-     *
-     * Formato:
-     *  - Cabecera: TipoDocumento;NumeroDocumento
-     *  - Cuerpo: IDProducto;Cantidad
-     *
-     * @param randomSalesCount número de ventas a registrar
-     * @param name nombre del vendedor
-     * @param id número de documento del vendedor
-     * @throws IOException en caso de error al escribir el archivo
-     *
-     * Jim Owen Rey: Este método genera ventas aleatorias para un vendedor.
-     */
-    public static void createSalesMenFile(int randomSalesCount, String name, long id) throws IOException {
-        String fileName = "sales_" + name + "_" + id + ".csv";
-        FileWriter writer = new FileWriter(fileName);
-        Random random = new Random();
-
-        // Cabecera: TipoDocumento;NumeroDocumento
-        writer.write("CC;" + id + "\n");
-
-        // Cuerpo: IDProducto;Cantidad
-        for (int i = 1; i <= randomSalesCount; i++) {
-            int cantidad = random.nextInt(5) + 1; // Entre 1 y 5 unidades
-            writer.write("P" + (random.nextInt(10) + 1) + ";" + cantidad + "\n");
-        }
-
-        writer.close();
+        System.out.println("Proceso de creación de archivos finalizado.");
     }
 }
