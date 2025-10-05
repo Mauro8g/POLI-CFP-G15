@@ -1,0 +1,22 @@
+1. Lo aprendido durante el desarrollo del proyecto
+
+Durante el desarrollo del proyecto aprendimos qué es un entorno de desarrollo y su importancia para programar de manera eficiente. Exploramos diferentes herramientas como Visual Studio Code, IntelliJ IDEA y otros IDEs, comprendiendo que cada uno ofrece características y ventajas específicas.
+Finalmente, elegimos IntelliJ IDEA porque se ajustó mejor a las necesidades del equipo: ofreció integración directa con GitHub, facilidad para compilar y ejecutar proyectos en Java y una organización más clara del código en paquetes y clases, lo que facilitó la colaboración grupal.
+
+Además, reforzamos conceptos clave de Java, como organizar el código en clases y métodos, leer y escribir archivos en formato CSV y utilizar estructuras de datos como HashMap y listas para almacenar y procesar información.
+También valoramos la importancia de las buenas prácticas, como el manejo de excepciones, el uso de comentarios para documentar el código y la creación de flujogramas para representar visualmente los procesos y el flujo del programa.
+
+2. Posibles aplicaciones en nuestra vida profesional
+
+Las habilidades adquiridas durante el proyecto son valiosas para automatizar tareas relacionadas con el manejo de datos.
+Por ejemplo, en distintos entornos laborales podríamos desarrollar herramientas que lean, procesen y generen reportes a partir de grandes volúmenes de información en archivos de texto o bases de datos.
+Además, podemos aplicar los conocimientos de lógica de programación para resolver problemas operativos y optimizar procesos, especialmente en la gestión de información de clientes, productos y ventas.
+
+Un caso destacado fue que uno de los miembros del equipo había creado previamente, con ayuda de Inteligencia Artificial, un curso en HTML. Gracias a lo aprendido sobre Java en este proyecto, logró agregar un mini-test interactivo dentro del curso, lo que mejoró significativamente la experiencia de aprendizaje de los usuarios al brindarles retroalimentación inmediata y ejercicios prácticos.
+Este ejemplo demuestra el potencial de combinar Java con otras tecnologías para enriquecer proyectos educativos y profesionales.
+
+3. Dificultades presentadas durante el desarrollo del proyecto
+
+Una de las principales dificultades que enfrentamos fue la instalación y configuración del entorno de desarrollo (JDK, IntelliJ IDEA y GitHub), así como el aprendizaje inicial del uso de control de versiones para sincronizar el proyecto.
+También resultó un reto comprender cómo estructurar el programa para separar la generación de datos (primera entrega) del procesamiento de ventas (segunda entrega), así como depurar errores al leer y escribir archivos CSV.
+Sin embargo, superar estas dificultades nos permitió fortalecer nuestras competencias técnicas y comprender mejor el flujo completo de un proyecto de software.
