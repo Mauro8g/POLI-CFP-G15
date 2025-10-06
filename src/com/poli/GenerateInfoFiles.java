@@ -22,8 +22,8 @@ public class GenerateInfoFiles {
         Random random = new Random();
         
         String[] documentTypes = {"TI", "CC", "CE"};
-        String[] names = {"Sara", "Andrea", "Estefany", "Jessica", "Juliana", "Francisco", "Antonio", "Camilo", "Michael", "German", "Eduar", "Jhon", "Viviana"};
-        String[] lastnames = {"Rios", "Cardona", "Rivera", "Alvares", "Murillo", "Montoya", "Contreras", "Jimenes"};
+        String[] names = {"Sara", "Andrea", "Estefany", "Jessica", "Juliana", "Francisco", "Antonio", "Camilo", "Michael", "German", "Eduar", "Jhon", "Viviana","Julio","Laura","Luis","Leonardo","Jose"};
+        String[] lastnames = {"Rios", "Cardona", "Rivera", "Alvares", "Murillo", "Montoya", "Contreras", "Jimenes","Corrales","Velez","Caicedo","Mejia"};
         
         for (int i = 0; i < salesmanCount; i++) {
             String randomDocType = documentTypes[random.nextInt(documentTypes.length)];
@@ -67,7 +67,7 @@ public class GenerateInfoFiles {
      * @return Un HashMap donde la clave es el nombre del producto y el valor es un array con el ID y el precio.
      */
     public static HashMap<String, String[]> generateProductData() {
-        String[] productNames = {"Tornillo", "Tuerca", "Arandela", "Broca", "Atornillador", "Martillo", "Llave", "Serrucho", "Taladro", "Destornillador"};
+        String[] productNames = {"Tornillo", "Tuerca", "Arandela", "Broca", "Atornillador", "Martillo", "Llave", "Serrucho", "Taladro", "Bateria", "Puntilla","Disco_corte","Disco_pulir","Toma_corriente","Cable_duplex","Alambre"};
         HashMap<String, String[]> productData = new HashMap<>();
         Random random = new Random();
         
@@ -141,7 +141,7 @@ public class GenerateInfoFiles {
 
     public static void main(String[] args) {
         // La cantidad de vendedores que queremos generar
-        int totalSalesmen = 10;
+        int totalSalesmen = 20;
         
         // 1. Generar los datos de todos los vendedores
         HashMap<Long, String[]> salesmenData = generateSalesmenData(totalSalesmen);
@@ -161,7 +161,7 @@ public class GenerateInfoFiles {
             String[] info = entry.getValue();
             String documentType = info[0];
 
-            createSalesmenFile(10, documentType, documentNumber, productData); 
+            createSalesmenFile(20, documentType, documentNumber, productData); 
         }
 
         System.out.println("Proceso de creación de archivos finalizado.");
